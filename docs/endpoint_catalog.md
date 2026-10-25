@@ -63,6 +63,10 @@ Fragments used by `raceMeetings`: **`raceFragment`** (on `Race`) and **`racingBl
 ```
 
 - `date` is `YYYY-MM-DD`; `venueCode` is the **uppercase** code (`HV`, `ST`, `CH`, `S1`…`S9`).
+- ⚠️ **Both must be non-empty and must name a real meeting.** `{"date":"","venueCode":""}` returns
+  `BAD_REQUEST` (it is not a "give me everything" query — the SPA always passes the selected
+  meeting), and a date with no published card does the same. To find a meeting, walk forward from
+  today through the venue list until one returns data (see `racing_live_capture.py --auto`).
 - Send `{"date":"", "venueCode":""}` to get `activeMeetings` — the meetings HKJC is currently
   presenting (note: `activeMeetings` is the alias used by the shipped document for an unfiltered
   `raceMeetings` call).
